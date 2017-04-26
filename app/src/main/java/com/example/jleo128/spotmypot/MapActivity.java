@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,6 +55,12 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
         mapFragment.getMapAsync(this);
         createLocationRequest();
         buildGoogleApiClient();
+        Button addBathroom = (Button) findViewById(R.id.add);
+        addBathroom.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                addBathroom();
+            }
+        });
     }
 
     @Override
@@ -180,5 +188,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
         }
     }
 
+    private void addBathroom(){
 
+    }
 }
