@@ -1,6 +1,7 @@
-package com.example.jleo128.spotmypot;
+package edu.unc.andrewck.spotmypot;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -40,7 +41,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
 {
     private GoogleApiClient c = null;
     private LocationRequest req;
-    private Geocoder g = new Geocoder(this, Locale.getDefault());
+    //private Geocoder g = new Geocoder(this, Locale.getDefault());
     private Location currentlocation;
     private MapFragment mapFragment;
     private GoogleMap map;
@@ -165,11 +166,11 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
             // Remove the anterior marker
             if (locationMarker != null)
                 locationMarker.remove();
-                locationMarker = map.addMarker(markerOptions);
-            }
-            float zoom = 17f;
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, zoom);
-            map.animateCamera(cameraUpdate);
+            locationMarker = map.addMarker(markerOptions);
+        }
+        float zoom = 17f;
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, zoom);
+        map.animateCamera(cameraUpdate);
     }
 
 
@@ -189,6 +190,8 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     private void addBathroom(){
-
+        Intent i = new Intent(this, ReviewEntryActivity.class);
+        i.putExtra("Location", currentlocation);
+        startActivity(i);
     }
 }
