@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -48,7 +48,8 @@ public class ReviewEntryActivity extends AppCompatActivity {
         Bathroom b;
         try {
             b = new Bathroom(((EditText) findViewById(R.id.name)).getText().toString(),
-                    new LatLng(l.getLatitude(), l.getLongitude()),
+                    l.getLatitude(),
+                    l.getLongitude(),
                     ((EditText) findViewById(R.id.building)).getText().toString(),
                     Integer.parseInt(((EditText) findViewById(R.id.floor)).getText().toString()),
                     ((Spinner) findViewById(R.id.typeSpin)).getSelectedItem().toString(),
@@ -60,18 +61,24 @@ public class ReviewEntryActivity extends AppCompatActivity {
         }
 
         //Put it into the array that's stored in data
-        List<Bathroom> reviewList;
+        List<Bathroom> reviewList = null;
         try {
             try {
                 reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
             } catch (ClassNotFoundException e) {
-                reviewList = new ArrayList<Bathroom>();
             }
-            
+        } catch(IOException e) {
+            reviewList = new ArrayList<Bathroom>();
+        }
+        if (reviewList != null) {
             reviewList.add(b);
-            
+        }
+
+        try {
             InternalStorage.writeObject(this, "list", reviewList);
-        } catch(IOException e) { }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         returnToMain(v);
     }

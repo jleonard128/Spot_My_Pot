@@ -3,15 +3,13 @@ package edu.unc.andrewck.spotmypot;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,16 +25,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MapActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, OnMapReadyCallback
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
 {
     private GoogleApiClient c = null;
@@ -100,6 +100,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         startLocationUpdates();
+        addBathrooms();
     }
 
     @Override
@@ -166,7 +167,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
             // Remove the anterior marker
             if (locationMarker != null)
                 locationMarker.remove();
-            locationMarker = map.addMarker(markerOptions);
+            //locationMarker = map.addMarker(markerOptions);
         }
         float zoom = 17f;
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, zoom);
@@ -174,24 +175,74 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     }
 
 
-    private void addGeoLocation(LatLng latlng) {
-        String title = latlng.latitude + ", " + latlng.longitude;
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(latlng)
-                .title(title);
-        if (map != null) {
-            if (geoMarker != null)
-            {
-                geoMarker.remove();
-                geoMarker = null;
+    private void addBathrooms() {
+        List<Bathroom> reviewList;
+        map.setOnMarkerClickListener(this);
+        try {
+            try {
+                    reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
+            } catch (ClassNotFoundException e) {
+                reviewList = new ArrayList<Bathroom>();
             }
-            geoMarker = map.addMarker(markerOptions);
-        }
+            for (Bathroom b: reviewList) {
+                String title = b.getName();
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(b.getLocation())
+                        .title(title)
+                        .snippet(title);
+                if (b.getGender().equals("Men's")) {
+                    markerOptions.icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                } else if (b.getGender().equals("Women's")){
+                    markerOptions.icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                }
+                else
+                {
+                    markerOptions.icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                }
+                    if (map != null) {
+                        geoMarker = map.addMarker(markerOptions);
+                    }
+            }
+        } catch(IOException e) { }
+
     }
 
     private void addBathroom(){
         Intent i = new Intent(this, ReviewEntryActivity.class);
         i.putExtra("Location", currentlocation);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        List<Bathroom> reviewList = null;
+        try {
+            try {
+                reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
+            } catch (ClassNotFoundException e) {
+            }
+        } catch(IOException e) {
+        }
+        Bathroom result = null;
+        if (reviewList != null) {
+            for (Bathroom b: reviewList) {
+                if (b.getName().equals(marker.getTitle()))
+                {
+                    result = b;
+                }
+            }
+        }
+        if (result == null)
+            return false;
+        else
+        {
+            Intent i = new Intent(this, SingleReview.class);
+            i.putExtra("review", result);
+            startActivity(i);
+        }
+        return true;
     }
 }

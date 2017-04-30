@@ -1,4 +1,4 @@
-package com.example.jleo128.spotmypot;
+package edu.example.jleo128.spotmypot;
 
 import org.junit.Test;
 

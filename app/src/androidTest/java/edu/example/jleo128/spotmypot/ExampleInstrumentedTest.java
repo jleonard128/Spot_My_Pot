@@ -1,4 +1,4 @@
-package com.example.jleo128.spotmypot;
+package edu.example.jleo128.spotmypot;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

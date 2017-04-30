@@ -14,17 +14,16 @@ public class MainMenu extends AppCompatActivity {
     }
 
     protected void toList(View v) {
-        /*
-        Intent i = new Intent(this, ListActivity.class);
+
+        Intent i = new Intent(this, ListView.class);
         startActivity(i);
-         */
+
     }
 
     protected void toMap(View v) {
-        /*
-        Intent i = new Intent(this, MapViewActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
-         */
+
     }
 
     protected void toEntry(View v) {

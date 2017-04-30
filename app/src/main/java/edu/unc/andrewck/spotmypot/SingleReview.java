@@ -48,19 +48,26 @@ public class SingleReview extends AppCompatActivity implements OnMapReadyCallbac
 
     protected void deleteReview(View v) {
         //Put it into the array that's stored in data
-        List<Bathroom> reviewList;
+        List<Bathroom> reviewList = null;
         try {
             try {
                 reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
-            } catch (ClassNotFoundException e) {
-                reviewList = new ArrayList<Bathroom>();
+            } catch (ClassNotFoundException e) {}
+        }catch(IOException e) {
+            reviewList = new ArrayList<Bathroom>();
+        }
+        for (Bathroom r : reviewList) {
+            if (r.equals(b))
+            {
+                reviewList.remove(r);
             }
+        }
 
-            reviewList.remove(b);
-
+        try {
             InternalStorage.writeObject(this, "list", reviewList);
-        } catch(IOException e) { }
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Intent i = new Intent(this, MainMenu.class);
         startActivity(i);
     }
