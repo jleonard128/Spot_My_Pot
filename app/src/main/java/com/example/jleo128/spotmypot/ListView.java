@@ -108,4 +108,9 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
         i.putExtra("review", ((SmallReview) v).getReview());
         startActivity(i);
     }
+
+    protected void toMap(View v) {
+        Intent i = new Intent(this, MapActivity.class);
+        startActivity(i);
+    }
 }
