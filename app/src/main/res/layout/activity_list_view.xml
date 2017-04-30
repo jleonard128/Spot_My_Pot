@@ -28,9 +28,12 @@
             android:text="sort"
             android:onClick="sortList"/>
 
-        <Space
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Map"
+            android:onClick="toMap"/>
 
         <Button
             android:layout_width="50dp"
