@@ -16,11 +16,9 @@
         <item>5 Stars</item>
     </string-array>
     <string-array name="sort_array">
-        <item>Default</item>
         <item>Name</item>
         <item>Building</item>
         <item>Gender</item>
-        <item>Distance</item>
         <item>Rating</item>
     </string-array>
 </resources>
