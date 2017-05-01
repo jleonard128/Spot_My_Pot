@@ -47,16 +47,26 @@ public class ReviewEntryActivity extends AppCompatActivity {
         //Make bathroom object
         Bathroom b;
         try {
+            if (((EditText) findViewById(R.id.name)).getText().toString().equals(""))
+            {
+                Toast.makeText(this, "No Name Given", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (((EditText) findViewById(R.id.building)).getText().toString().equals(""))
+            {
+                Toast.makeText(this, "No Building Given", Toast.LENGTH_SHORT).show();
+                return;
+            }
             b = new Bathroom(((EditText) findViewById(R.id.name)).getText().toString(),
                     l.getLatitude(),
                     l.getLongitude(),
                     ((EditText) findViewById(R.id.building)).getText().toString(),
                     Integer.parseInt(((EditText) findViewById(R.id.floor)).getText().toString()),
                     ((Spinner) findViewById(R.id.typeSpin)).getSelectedItem().toString(),
-                    ((Spinner) findViewById(R.id.starSpin)).getSelectedItemPosition() - 1,
+                    ((Spinner) findViewById(R.id.starSpin)).getSelectedItemPosition(),
                     ((EditText) findViewById(R.id.review)).getText().toString());
         } catch(NumberFormatException e) {
-            Toast.makeText(this, "Invalid input.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Floor Given", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -80,11 +90,11 @@ public class ReviewEntryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        returnToMain(v);
+        returnToMap(v);
     }
 
-    protected void returnToMain(View v) {
-        Intent i = new Intent(this, MainMenu.class);
+    protected void returnToMap(View v) {
+        Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }
 }

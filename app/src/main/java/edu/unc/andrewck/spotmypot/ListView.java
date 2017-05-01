@@ -98,10 +98,6 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
         if(rList != null) for(Bathroom b : rList) addToList(l, b);
     }
 
-    protected void addReview(View v) {
-        Intent i = new Intent(this, MapActivity.class);
-        startActivity(i);
-    }
 
     private void addToList(LinearLayout l, Bathroom b) {
         View r = new SmallReview(this, b);
@@ -119,6 +115,11 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
 
     protected void toMap(View v) {
         Intent i = new Intent(this, MapActivity.class);
+        startActivity(i);
+    }
+
+    protected void toMain(View v) {
+        Intent i = new Intent(this, MainMenu.class);
         startActivity(i);
     }
 

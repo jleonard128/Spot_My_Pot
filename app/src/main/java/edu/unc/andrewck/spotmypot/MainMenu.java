@@ -25,9 +25,4 @@ public class MainMenu extends AppCompatActivity {
         startActivity(i);
 
     }
-
-    protected void toEntry(View v) {
-        Intent i = new Intent(this, MapActivity.class);
-        startActivity(i);
-    }
 }

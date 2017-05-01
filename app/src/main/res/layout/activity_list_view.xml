@@ -35,13 +35,13 @@
             android:layout_weight="1"
             android:text="Map"
             android:onClick="toMap"/>
-
         <Button
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="+"
-            android:onClick="addReview"/>
+            android:layout_weight="1"
+            android:text="Main Menu"
+            android:onClick="toMain"/>
+
 
     </LinearLayout>
 
