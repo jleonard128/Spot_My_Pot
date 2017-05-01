@@ -13,7 +13,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/big">
 
         <Spinner
             android:id="@+id/lvSort"
@@ -47,13 +48,25 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:id="@+id/scroller">
 
         <LinearLayout
             android:id="@+id/lvList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="100dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Don't see any Reviews? \nTap Here"
+                android:onClick="loadReviews"/>
+
         </LinearLayout>
 
     </ScrollView>
