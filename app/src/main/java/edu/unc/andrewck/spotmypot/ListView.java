@@ -40,7 +40,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
         catch(ClassNotFoundException e) { }
 
 
-        l.removeAllViews();
+        //l.removeAllViews();
         if(rList != null) for(Bathroom b : rList) addToList(l, b);
     }
 
@@ -120,5 +120,10 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
     protected void toMap(View v) {
         Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
+    }
+
+    protected void loadReviews(View v) {
+        l.removeAllViews();
+        if(rList != null) for(Bathroom b : rList) addToList(l, b);
     }
 }
