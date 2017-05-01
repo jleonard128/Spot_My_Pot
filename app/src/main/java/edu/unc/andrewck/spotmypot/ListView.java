@@ -3,6 +3,7 @@ package edu.unc.andrewck.spotmypot;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,13 +36,20 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
 
         try {
             rList = (ArrayList) InternalStorage.readObject(this, "list");
-        } catch(IOException e) {}
-        catch(ClassNotFoundException e) {}
+        } catch(IOException e) { }
+        catch(ClassNotFoundException e) { }
 
-        for(Bathroom b : rList) addToList(l, b);
+
+        l.removeAllViews();
+        if(rList != null) for(Bathroom b : rList) addToList(l, b);
     }
 
+
+
+
     protected void sortList(View v) {
+        if(rList ==  null) return;
+
         Spinner s = (Spinner) findViewById(R.id.lvSort);
 
         String sortBy = s.getSelectedItem().toString();
@@ -52,7 +60,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public int compare(Bathroom b2, Bathroom b1)
                     {
-                        return  b1.getName().compareTo(b2.getName());
+                        return  b2.getName().compareToIgnoreCase(b1.getName());
                     }
                 });
                 break;
@@ -61,7 +69,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public int compare(Bathroom b2, Bathroom b1)
                     {
-                        return  b1.getBuilding().compareTo(b2.getBuilding());
+                        return  b2.getBuilding().compareToIgnoreCase(b1.getBuilding());
                     }
                 });
                 break;
@@ -70,7 +78,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public int compare(Bathroom b2, Bathroom b1)
                     {
-                        return  b1.getGender().compareTo(b2.getGender());
+                        return  b2.getGender().compareToIgnoreCase(b1.getGender());
                     }
                 });
                 break;
@@ -87,7 +95,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
         }
 
         l.removeAllViews();
-        for(Bathroom b : rList) addToList(l, b);
+        if(rList != null) for(Bathroom b : rList) addToList(l, b);
     }
 
     protected void addReview(View v) {
@@ -98,8 +106,8 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
     private void addToList(LinearLayout l, Bathroom b) {
         View r = new SmallReview(this, b);
         r.setOnClickListener(this);
-        l.addView(r, l.getWidth(), 80);
-
+        r.postInvalidate();
+        l.addView(r, l.getWidth(), 200);
     }
 
     @Override
