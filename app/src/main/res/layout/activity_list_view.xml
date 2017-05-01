@@ -24,23 +24,25 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="sort"
             android:onClick="sortList"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Map"
             android:onClick="toMap"/>
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Main Menu"
-            android:onClick="toMain"/>
+            android:onClick="toMain"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
