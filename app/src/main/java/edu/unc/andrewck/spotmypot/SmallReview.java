@@ -40,15 +40,15 @@ public class SmallReview extends View {
         c.drawLine(0, 0, getWidth(), 0, black);
         c.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1, black);
 
-        black.setTextSize(20);
+        black.setTextSize(50);
 
-        c.drawText(b.getName() + " (" + b.getGender() + ")", 10, 30, black);
+        c.drawText(b.getName() + " (" + b.getGender() + ")", 10, 60, black);
 
-        black.setTextSize((15));
+        black.setTextSize(45);
 
-        c.drawText(b.getBuilding() + ", Floor " + b.getFloor(), 10, 60, black);
+        c.drawText(b.getBuilding() + ", Floor " + b.getFloor(), 10, 140, black);
 
-        c.drawText(b.getStars() + " Stars", getWidth() - 30, 40, black);
+        c.drawText(b.getStars() + " Stars", getWidth() - 200, 100, black);
     }
 
     public Bathroom getReview() { return b; }
