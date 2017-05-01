@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">SpotMyPot</string>
     <string-array name="types_array">
-        <item>Choose one...</item>
         <item>Men\'s</item>
         <item>Women\'s</item>
         <item>Unisex</item>
     </string-array>
     <string-array name="stars_array">
-        <item>Choose one...</item>
         <item>0 Stars</item>
         <item>1 Star</item>
         <item>2 Stars</item>
