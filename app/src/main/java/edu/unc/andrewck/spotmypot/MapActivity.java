@@ -64,7 +64,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
             public void onClick(View v){
                 zoom();
             }
-       });
+        });
         Button backToMain = (Button) findViewById(R.id.back);
         backToMain.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -176,6 +176,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
 
     // Create a Location Marker
     private void markerLocation(LatLng latlng) {
+        updateDistances();
         if (!moved) {
             zoom();
             moved = true;
@@ -199,7 +200,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
         map.setOnMarkerClickListener(this);
         try {
             try {
-                    reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
+                reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
             } catch (ClassNotFoundException e) {
                 reviewList = new ArrayList<Bathroom>();
             }
@@ -221,9 +222,9 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
                     markerOptions.icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
                 }
-                    if (map != null) {
-                        geoMarker = map.addMarker(markerOptions);
-                    }
+                if (map != null) {
+                    geoMarker = map.addMarker(markerOptions);
+                }
             }
         } catch(IOException e) { }
 
@@ -247,10 +248,10 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
             try {
                 try {
                     reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
-                    }
+                }
                 catch (ClassNotFoundException e) {}
-                } catch (IOException e) {}
-            }
+            } catch (IOException e) {}
+        }
 
         Bathroom result = null;
         if (reviewList != null) {
@@ -297,5 +298,24 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
                 new LatLng(currentlocation.getLatitude(), currentlocation.getLongitude()), zoom);
         map.animateCamera(cameraUpdate);
+    }
+
+    public void updateDistances(){
+        List<Bathroom> reviewList = null;
+        try {
+            try {
+                reviewList = (List<Bathroom>) InternalStorage.readObject(this, "list");
+            } catch (ClassNotFoundException e) {return;}
+            if (!reviewList.isEmpty())
+                for (Bathroom b: reviewList) {
+                    Location loc = new Location("");
+                    loc.setLongitude(b.getLocation().longitude);
+                    loc.setLatitude(b.getLocation().latitude);
+                    b.setDistance(currentlocation.distanceTo(loc));
+                }
+        } catch(IOException e) {return;}
+        try {
+            InternalStorage.writeObject(this, "list", reviewList);
+        } catch (IOException e) {return;}
     }
 }

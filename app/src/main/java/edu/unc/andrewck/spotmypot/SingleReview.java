@@ -35,6 +35,7 @@ public class SingleReview extends AppCompatActivity implements OnMapReadyCallbac
                 b.getFloor());
         ((TextView) findViewById(R.id.srStars)).setText(b.getStars() + " Stars");
         ((TextView) findViewById(R.id.srReview)).setText(b.getReview());
+        ((TextView) findViewById(R.id.srDist)).setText(b.getDistance() + " Miles");
 
         ((MapFragment) getFragmentManager().findFragmentById(R.id.srMap)).getMapAsync(this);
     }

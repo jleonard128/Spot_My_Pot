@@ -46,7 +46,8 @@ public class SmallReview extends View {
 
         black.setTextSize(45);
 
-        c.drawText(b.getBuilding() + ", Floor " + b.getFloor(), 10, 140, black);
+        c.drawText(b.getBuilding() + ", Floor " + b.getFloor() , 10, 140, black);
+        c.drawText("Distance: "+ b.getDistance() + " Miles" , 10, 190, black);
 
         c.drawText(b.getStars() + " Stars", getWidth() - 200, 140, black);
     }

@@ -37,6 +37,13 @@
             android:text="Stars"
             android:textSize="20dp"/>
 
+        <TextView
+            android:id="@+id/srDist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meters"
+            android:textSize="20dp"/>
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp" />

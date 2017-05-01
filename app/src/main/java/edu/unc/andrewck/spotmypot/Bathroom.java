@@ -17,6 +17,7 @@ public class Bathroom implements Serializable {
     private String gender;
     private int stars;
     private String review;
+    private double distance;
 
     public Bathroom()
     {
@@ -34,6 +35,7 @@ public class Bathroom implements Serializable {
         this.gender = gender;
         this.stars = stars;
         this.review = review;
+        this.distance = 0;
     }
 
     public String getName(){
@@ -68,5 +70,15 @@ public class Bathroom implements Serializable {
             return true;
         else
             return false;
+    }
+
+    public void setDistance(float distance)
+    {
+        double dist = distance * 0.000621371192;
+        this.distance = Math.floor(dist * 100) / 100;
+    }
+
+    public double getDistance(){
+        return distance;
     }
 }

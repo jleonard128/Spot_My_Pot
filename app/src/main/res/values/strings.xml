@@ -18,5 +18,6 @@
         <item>Building</item>
         <item>Gender</item>
         <item>Rating</item>
+        <item>Distance</item>
     </string-array>
 </resources>

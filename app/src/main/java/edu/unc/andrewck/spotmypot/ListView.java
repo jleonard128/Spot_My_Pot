@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class ListView extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,6 +89,16 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
                     public int compare(Bathroom b2, Bathroom b1)
                     {
                         return  b1.getStars() - b2.getStars();
+                    }
+                });
+                break;
+            case "Distance":
+                Collections.sort(rList, new Comparator<Bathroom>() {
+                    @Override
+                    public int compare(Bathroom b2, Bathroom b1)
+                    {
+                        int fin = (int)(b2.getDistance() - b1.getDistance());
+                        return fin;
                     }
                 });
                 break;
