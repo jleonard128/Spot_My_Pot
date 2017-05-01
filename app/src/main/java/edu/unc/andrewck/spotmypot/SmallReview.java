@@ -48,7 +48,7 @@ public class SmallReview extends View {
 
         c.drawText(b.getBuilding() + ", Floor " + b.getFloor(), 10, 140, black);
 
-        c.drawText(b.getStars() + " Stars", getWidth() - 200, 100, black);
+        c.drawText(b.getStars() + " Stars", getWidth() - 200, 140, black);
     }
 
     public Bathroom getReview() { return b; }
