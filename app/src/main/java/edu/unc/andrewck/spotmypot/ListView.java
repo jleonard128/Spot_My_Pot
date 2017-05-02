@@ -97,7 +97,7 @@ public class ListView extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public int compare(Bathroom b2, Bathroom b1)
                     {
-                        int fin = (int)(b2.getDistance() - b1.getDistance());
+                        int fin = (int)(b2.getDistance() * 100 - b1.getDistance() * 100);
                         return fin;
                     }
                 });
